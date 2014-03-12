@@ -28,7 +28,7 @@ char *testRemove(char *curPath)
 }
 
 
-void recurse(char *path)
+void recurse(char *path, FILE *bufferPtr)
 {
 
 	printf("The path is: %s\n",path);
@@ -55,7 +55,7 @@ void recurse(char *path)
 			else
 			{
 				char *newPath = getNewPath(path,direntPtr->d_name);
-				recurse(newPath);
+				recurse(newPath,bufferPtr);
 
 				// remove the last part of the path so that the next element doesn't get it
 				path = testRemove(newPath);
@@ -66,7 +66,7 @@ void recurse(char *path)
 	}
 	else if(filePtr != NULL)
 	{
-		processFile(path);		
+		processFile(path,bufferPtr);		
 		return;
 	}
 	else
@@ -82,6 +82,7 @@ int main(int argc, char **argv)
 	char *indexFile; 
 	indexFile = argv[1];
 
+	FILE *bufferPtr = fopen("aux.txt","w");
 
 	DIR *dirPtr;
 	dirPtr = opendir(argv[2]);
@@ -89,16 +90,18 @@ int main(int argc, char **argv)
 	
 	if(dirPtr != NULL)
 	{
-		recurse(argv[2]);
+		recurse(argv[2],bufferPtr);
 		printAll();
 	}
 	else if(filePtr != NULL)
 	{
-		processFile(argv[2]);
+		processFile(argv[2],bufferPtr);
 		printAll();
 	}
 	else
 		printf("There is an error in your input. Please make sure that the input is the path to an existing file or directory. Exiting...\n");
+
+	fclose(bufferPtr);
 }
 
 

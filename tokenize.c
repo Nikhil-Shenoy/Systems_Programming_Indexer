@@ -152,7 +152,7 @@ char *shiftStr(char *str, char *token)
 		3) Shift the file string to the left in order to get the next string
 
 */
-void processFile(char *path)
+void processFile(char *path, FILE *bufferPtr)
 {
 	FILE *myFile;
 	myFile = fopen(path,"r");
@@ -173,6 +173,8 @@ void processFile(char *path)
 		strPtr = createNewToken(str,token); // returns reference to the modified file string
 		strPtr = shiftStr(strPtr,token); // also returns reference to the modified file string
 		printf("Token is: %s\n",token);	
+		fprintf(bufferPtr,token);
+		fprintf(bufferPtr,"\n");
 		process(token,path);
 	}
 
