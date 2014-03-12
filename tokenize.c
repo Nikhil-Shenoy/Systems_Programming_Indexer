@@ -173,6 +173,8 @@ void processFile(char *path, FILE *bufferPtr)
 		strPtr = createNewToken(str,token); // returns reference to the modified file string
 		strPtr = shiftStr(strPtr,token); // also returns reference to the modified file string
 		printf("Token is: %s\n",token);	
+		fprintf(bufferPtr,path);
+		fprintf(bufferPtr," ");
 		fprintf(bufferPtr,token);
 		fprintf(bufferPtr,"\n");
 		process(token,path);
