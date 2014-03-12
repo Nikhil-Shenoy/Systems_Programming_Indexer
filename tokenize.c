@@ -162,7 +162,7 @@ void processFile(char *path)
 	charCount = getCharCount(myFile);	
 
 	char str[charCount]; // stores all the characters from the file
-	char *strPtr; // a reference to the file string
+	char *strPtr = str; // a reference to the file string
 	char token[charCount]; // token string initialized with the length of the file string (just incase).
 	initStr(str,myFile); // loaded all the characters from the file into a character array
 
